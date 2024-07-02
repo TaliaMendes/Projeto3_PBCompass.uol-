@@ -1,17 +1,35 @@
 import { Request, Response } from 'express';
 import { container } from 'tsyringe';
 import { ICar } from '../interfaces/Car.interface';
+import { IPagination } from '../interfaces/Pagination.interface';
+import Car from '../models/Car';
 import CarService from '../services/Cars.service';
+import { paginateModel } from '../utils/Pagination';
 import { isValidObjectId } from 'mongoose';
 import createError from 'http-errors';
 
 class CarsController {
-  async listAllCars(req: Request, res: Response): Promise<Response> {
+  async listAllCars(req: Request, res: Response) {
     try {
-      const filters = req.query;
+      const {...filters } = req.query;
+      const page = parseInt(req.query.page as string ) || 1;
+      const limit = parseInt(req.query.limit as string ) || 10;
       const service = container.resolve(CarService);
-      const allCars = await service.listAllCars(filters as Partial<ICar>);
-      return res.status(200).json(allCars);
+      const allCar = await service.listAllCars(filters as Partial<ICar>);
+      
+      const result: IPagination<ICar> = await paginateModel<ICar>(
+        Car,
+        {},
+        page,
+        limit
+      );
+      res.json({
+        data: allCar,
+        total: result.total,
+        limit: limit,
+        offset: (page - 1) * limit,
+        offsets: result.data.length,
+      });
     } catch (error) {
       return res.status(500).json({
         code: 500,

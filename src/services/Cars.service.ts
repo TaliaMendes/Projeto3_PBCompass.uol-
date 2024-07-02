@@ -10,7 +10,7 @@ class CarService {
     private CarRepository: ICarRepository,
   ){}
 
-  async listAllCars(filters: Partial<ICar>): Promise<ICar[]> {
+  async listAllCars(filters: Partial<ICar>) {
     const listAllCar = await this.CarRepository.listAllCars(filters);
     return listAllCar;
   }

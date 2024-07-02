@@ -6,16 +6,17 @@ import { ICar } from '../interfaces/Car.interface';
 class CarRepository implements ICarRepository {
   private repositoryCar = Car;
 
+  async listAllCars(filters: Partial<ICar>) {
+    const query = this.repositoryCar.find(filters);
+    const cars = await query;
+    return cars;
+  }
+
   async getCarById(_id: string) {
     const carById = await this.repositoryCar.findById(_id);
     return carById;
   }
 
-  async listAllCars(filters: Partial<ICar>): Promise<ICar[]> {
-    const cars = await this.repositoryCar.find(filters);
-    return cars;
-  }
-  
   async createCar(CarData: ICar) {
     const createCar = await this.repositoryCar.create(CarData);
     return createCar;
