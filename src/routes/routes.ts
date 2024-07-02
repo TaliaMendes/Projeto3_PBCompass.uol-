@@ -1,5 +1,5 @@
 import express from 'express';
-import carRouter from './Cars.routes';
+import carRouter from './Car.routes';
 
 const routes = express.Router();
 

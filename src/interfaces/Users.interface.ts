@@ -1,5 +1,4 @@
 export interface IUser {
-  id: string
   name: string
   cpf: string
   birth: string
@@ -7,9 +6,9 @@ export interface IUser {
   password: string
   cep: string
   qualified: string
-  patio: string
-  complement: string
-  neighborhood: string
-  locality: string
-  uf: string
+  patio?: string
+  complement?: string
+  neighborhood?: string
+  locality?: string
+  uf?: string
 }
