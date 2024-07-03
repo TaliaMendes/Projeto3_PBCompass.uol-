@@ -1,12 +1,9 @@
-// Importando zod
 import { z } from 'zod';
 
-// Schema do Accessory
 const accessorySchema = z.object({
   description: z.string().min(1, { message: 'Accessory description is required' })
 });
 
-// Schema do Car
 const carSchema = z.object({
   model: z.string().min(1, { message: 'Model is required' }),
   color: z.string().min(1, { message: 'Color is required' }),

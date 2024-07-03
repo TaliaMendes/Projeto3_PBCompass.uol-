@@ -38,15 +38,15 @@ class CarService {
     return updateCar;
   }
 
-  async updateAccessory(carId: string, accessoryId: string, description: string): Promise<ICar | null> {
-    const car = await this.CarRepository.updateAccessory(carId, accessoryId, description);
+  async updateAccessory(carId: string, accessoryId: string, description: string) {
+   const car = await this.CarRepository.modifyAccessory(carId,  accessoryId, description);
     if (!car) {
-      throw new createError.NotFound('Car or accessory not found');
+      throw new createError.NotFound('Car not found');
     }
     return car;
   }
 
-  async removeCar(_id: string): Promise<void> {
+  async removeCar(_id: string) {
     const carExists = await this.CarRepository.getCarById(_id);
     if (!carExists) {
       throw new createError.NotFound('Id not found');
@@ -54,8 +54,6 @@ class CarService {
     await this.CarRepository.removeCar(_id);
   }
 }
-
- 
 
 
 export default CarService;

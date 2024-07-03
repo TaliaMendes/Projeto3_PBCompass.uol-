@@ -1,4 +1,3 @@
-// middlewares/validateCar.ts
 import { Request, Response, NextFunction } from 'express';
 import { carSchema } from '../validators/Car.validators';
 import { z } from 'zod';

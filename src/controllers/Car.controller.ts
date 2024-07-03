@@ -13,18 +13,18 @@ class CarsController {
     try {
       const {...filters } = req.query;
       const page = parseInt(req.query.page as string ) || 1;
-      const limit = parseInt(req.query.limit as string ) || 10;
+      const limit = parseInt(req.query.limit as string ) || 3;
       const service = container.resolve(CarService);
-      const allCar = await service.listAllCars(filters as Partial<ICar>);
+      await service.listAllCars(filters as Partial<ICar>);
       
       const result: IPagination<ICar> = await paginateModel<ICar>(
         Car,
-        {},
+        filters,
         page,
         limit
       );
-      res.json({
-        data: allCar,
+      res.status(200).json({
+        data: result.data,
         total: result.total,
         limit: limit,
         offset: (page - 1) * limit,
@@ -118,7 +118,6 @@ class CarsController {
       }
     }
   }
-
 
   async updateAccessory(req: Request, res: Response): Promise<Response> {
     try {

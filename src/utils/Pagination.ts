@@ -7,8 +7,8 @@ export async function paginateModel<type>(
   page: number, 
   limit: number
 ): Promise<IPagination<type>> {
-  const skip = (page - 1) * limit;
   try {
+    const skip = (page - 1) * limit;
     const data = await model.find(filters).skip(skip).limit(limit);
     const total = await model.countDocuments(filters);
     const pages = Math.ceil(total / limit);

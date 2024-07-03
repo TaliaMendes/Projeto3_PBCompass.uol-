@@ -1,6 +1,7 @@
 import { ICarRepository } from '../repositories.interface/Car.repositories.interface';
 import Car from '../models/Car';
 import { ICar } from '../interfaces/Car.interface';
+import  mongoose from 'mongoose';
 
 
 class CarRepository implements ICarRepository {
@@ -37,15 +38,33 @@ class CarRepository implements ICarRepository {
     return car;
   } 
 
-  async addAccessory(carId: string, accessory: { description: string }): Promise<ICar | null> {
+  async addAccessory(carId: string, accessory: { description: string }) {
+    
+    const newAccessory = {
+      _id: new mongoose.Types.ObjectId(), 
+      description: accessory.description
+    };
+    
     const car = await this.repositoryCar.findByIdAndUpdate(
       carId,
-      { $push: { accessories: accessory } },
+      { $push: { accessories: newAccessory } },
       { new: true }
     );
     return car;
   }
 
+  async modifyAccessory(carId: string, accessoryId: string, description: string) {
+    let car;
+    const existingAccessory = await this.repositoryCar.findOne({ _id: carId, 'accessories._id': accessoryId });
+
+    if (existingAccessory) {
+      car = await this.updateAccessory(carId, accessoryId, description);
+    } else {
+      car = await this.addAccessory(carId, { description });
+    }
+    return car;
+  }
+  
   async removeCar(_id: string) {
     await this.repositoryCar.deleteOne({ _id: _id});
   }
