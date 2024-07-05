@@ -1,7 +1,7 @@
 import { ICar } from '../interfaces/Car.interface';
 
 export interface ICarRepository {
-  listAllCars(filters: Partial<ICar>): Promise<ICar[] | null>
+  listAllCars(filters: Partial<ICar>): Promise<ICar[]>
   getCarById(_id: string):Promise<ICar | null>
   createCar(CarData: ICar):Promise<ICar | null>
   updateCar(_id: string, CarData: ICar):Promise<ICar | null>
