@@ -22,7 +22,6 @@ class UserRepository implements IUserRepository {
   }
 
   async getUserByEmail(email: string) {
-    console.log(email);
     const userByEmail = await this.repositoryUser.findOne({ email });
     return userByEmail;
   }

@@ -10,5 +10,5 @@ export interface IUserRepository {
   createUser(dataCep: ICep, userData: IUser):Promise<IUser | null>
   updateUser(_id: string, userData: IUser):Promise<IUser | null>
   removeUser(_id: string):Promise<void>
-  getToken(): Promise<string>
+ getToken(): Promise<string>
 }
