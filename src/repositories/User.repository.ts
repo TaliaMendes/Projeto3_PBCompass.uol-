@@ -3,6 +3,9 @@ import User from '../models/User';
 import { IUser } from '../interfaces/Users.interface';
 import { ICep } from 'interfaces/Cep.interface';
 import bcrypt from 'bcrypt';
+import jwt from 'jsonwebtoken';
+import dotenv from 'dotenv';
+dotenv.config();
 
 class UserRepository implements IUserRepository {
   private repositoryUser = User;
@@ -19,6 +22,7 @@ class UserRepository implements IUserRepository {
   }
 
   async getUserByEmail(email: string) {
+    console.log(email);
     const userByEmail = await this.repositoryUser.findOne({ email });
     return userByEmail;
   }
@@ -52,6 +56,13 @@ class UserRepository implements IUserRepository {
 
   async removeUser(_id: string) {
     await this.repositoryUser.deleteOne({ _id: _id});
+  }
+
+  async getToken() {
+    const token = jwt.sign({ }, process.env.JWT_SECRET || '09f1d706131242c7c3b730cdcb0567b5', {
+      expiresIn: '12h',
+    });
+    return token;
   }
 }
 
