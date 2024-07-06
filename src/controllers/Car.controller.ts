@@ -13,7 +13,7 @@ class CarsController {
     try {
       const {...filters } = req.query;
       const page = parseInt(req.query.page as string, 10 ) || 1;
-      const limit = parseInt(req.query.limit as string, 10 ) || 5;
+      const limit = parseInt(req.query.limit as string, 10 ) || 10;
       const service = container.resolve(CarService);
       const allCars = await service.listAllCars(filters as Partial<ICar>);
       
