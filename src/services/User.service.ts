@@ -53,6 +53,13 @@ class UserService {
     }
     await this.UserRepository.removeUser(_id);
   }
+
+  async getToken(){
+    const token = await this.UserRepository.getToken();
+    return token;
+  }
+  
+
 }
 
 export default UserService;
