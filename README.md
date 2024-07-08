@@ -29,7 +29,7 @@ Para começar com o projeto, siga as etapas a seguir:
 1. Configure variáveis ​​de ambiente:
     Crie um arquivo `.env` no diretório raiz e configure as variáveis ​​de ambiente necessárias, de acordo com o arquivo `.env.example`.
 
-2. Compile the application:
+2. Compile a aplicação:
     ```sh
     npm run build
     ```
